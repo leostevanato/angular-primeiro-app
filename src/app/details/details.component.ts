@@ -10,7 +10,6 @@ import { HousingLocation } from '../housinglocation';
   imports: [CommonModule],
   template: `
     <article>
-      <p>{{ housingLocationDados }}</p>
       <img class="listing-photo" [src]="housingLocation?.photo" alt="Exterior photo of {{housingLocation?.name}}"/>
       <section class="listing-description">
         <h2 class="listing-heading">{{housingLocation?.name}}</h2>
@@ -33,11 +32,9 @@ export class DetailsComponent {
   route: ActivatedRoute = inject(ActivatedRoute);
   housingService = inject(HousingService);
   housingLocation: HousingLocation | undefined;
-  housingLocationDados = '';
 
   constructor() {
     const housingLocationId = Number(this.route.snapshot.params['id']);
     this.housingLocation = this.housingService.getHousingLocationById(housingLocationId);
-    this.housingLocationDados = JSON.stringify(this.housingLocation);
   }
 }
