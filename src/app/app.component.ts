@@ -20,6 +20,7 @@ import { HomeComponent } from './home/home.component';
   `,
   styleUrls: ['./app.component.css'],
 })
+
 export class AppComponent {
   title = 'angular-primeiro-app';
 }
