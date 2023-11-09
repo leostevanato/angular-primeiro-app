@@ -19,7 +19,12 @@ import { HousingLocation } from '../housinglocation';
       </form>
     </section>
     <section class="results">
-      <app-housing-location *ngFor="let housingLocation of filteredLocationList" [housingLocation]="housingLocation"></app-housing-location>
+      <ng-container *ngIf="filteredLocationList.length > 0; else loading">
+        <app-housing-location *ngFor="let housingLocation of filteredLocationList" [housingLocation]="housingLocation"></app-housing-location>
+      </ng-container>
+      <ng-template #loading>
+        <p>{{ isLoading ? "Loading..." : "No results found" }}</p>
+      </ng-template>
     </section>
   `,
   styleUrls: ['./home.component.css']
@@ -29,6 +34,7 @@ export class HomeComponent {
   housingLocationList: HousingLocation[] = [];
   housingService: HousingService = inject(HousingService);
   filteredLocationList: HousingLocation[] = [];
+  isLoading: boolean = true;
 
   constructor() {
     if (this.housingService.dataOriginLocal) {
@@ -50,5 +56,7 @@ export class HomeComponent {
     this.filteredLocationList = this.housingLocationList.filter(
       housingLocation => housingLocation?.city.toLowerCase().includes(text.toLowerCase())
     );
+
+    this.isLoading = false;
   }
 }
