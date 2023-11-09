@@ -58,18 +58,18 @@ export class DetailsComponent {
     email: new FormControl('')
   });
 
-  // Local data
-  // constructor() {
-  //   const housingLocationId = Number(this.route.snapshot.params['id']);
-  //   this.housingLocation = this.housingService.getHousingLocationById(housingLocationId);
-  // }
-
-  // JSON server
   constructor() {
-    const housingLocationId = parseInt(this.route.snapshot.params['id'], 10);
-    this.housingService.getHousingLocationById(housingLocationId).then(housingLocation => {
-      this.housingLocation = housingLocation;
-    });
+    if (this.housingService.dataOriginLocal) {
+      const housingLocationId = Number(this.route.snapshot.params['id']);
+
+      this.housingLocation = this.housingService.getHousingLocationById(housingLocationId);
+    } else {
+      const housingLocationId = parseInt(this.route.snapshot.params['id'], 10);
+
+      this.housingService.getAsyncHousingLocationById(housingLocationId).then(housingLocation => {
+        this.housingLocation = housingLocation;
+      });
+    }
   }
 
   submitApplication() {

@@ -5,15 +5,17 @@ import { HousingLocation } from './housinglocation';
   providedIn: 'root'
 })
 
-/*
-// Local data
 export class HousingService {
+  dataOriginLocal = false; // true for local array | false for json server
+
+  url = 'http://localhost:3000/locations';
+
   readonly baseUrl = 'https://angular.io/assets/images/tutorials/faa';
 
   housingLocationList: HousingLocation[] = [
     {
       id: 0,
-      name: 'Acme Fresh Start Housing',
+      name: 'Local - Acme Fresh Start Housing',
       city: 'Chicago',
       state: 'IL',
       photo: `${this.baseUrl}/bernard-hermant-CLKGGwIBTaY-unsplash.jpg`,
@@ -23,7 +25,7 @@ export class HousingService {
     },
     {
       id: 1,
-      name: 'A113 Transitional Housing',
+      name: 'Local - A113 Transitional Housing',
       city: 'Santa Monica',
       state: 'CA',
       photo: `${this.baseUrl}/brandon-griggs-wR11KBaB86U-unsplash.jpg`,
@@ -33,7 +35,7 @@ export class HousingService {
     },
     {
       id: 2,
-      name: 'Warm Beds Housing Support',
+      name: 'Local - Warm Beds Housing Support',
       city: 'Juneau',
       state: 'AK',
       photo: `${this.baseUrl}/i-do-nothing-but-love-lAyXdl1-Wmc-unsplash.jpg`,
@@ -43,7 +45,7 @@ export class HousingService {
     },
     {
       id: 3,
-      name: 'Homesteady Housing',
+      name: 'Local - Homesteady Housing',
       city: 'Chicago',
       state: 'IL',
       photo: `${this.baseUrl}/ian-macdonald-W8z6aiwfi1E-unsplash.jpg`,
@@ -53,7 +55,7 @@ export class HousingService {
     },
     {
       id: 4,
-      name: 'Happy Homes Group',
+      name: 'Local - Happy Homes Group',
       city: 'Gary',
       state: 'IN',
       photo: `${this.baseUrl}/krzysztof-hepner-978RAXoXnH4-unsplash.jpg`,
@@ -63,7 +65,7 @@ export class HousingService {
     },
     {
       id: 5,
-      name: 'Hopeful Apartment Group',
+      name: 'Local - Hopeful Apartment Group',
       city: 'Oakland',
       state: 'CA',
       photo: `${this.baseUrl}/r-architecture-JvQ0Q5IkeMM-unsplash.jpg`,
@@ -73,7 +75,7 @@ export class HousingService {
     },
     {
       id: 6,
-      name: 'Seriously Safe Towns',
+      name: 'Local - Seriously Safe Towns',
       city: 'Oakland',
       state: 'CA',
       photo: `${this.baseUrl}/phil-hearing-IYfp2Ixe9nM-unsplash.jpg`,
@@ -83,7 +85,7 @@ export class HousingService {
     },
     {
       id: 7,
-      name: 'Hopeful Housing Solutions',
+      name: 'Local - Hopeful Housing Solutions',
       city: 'Oakland',
       state: 'CA',
       photo: `${this.baseUrl}/r-architecture-GGupkreKwxA-unsplash.jpg`,
@@ -93,7 +95,7 @@ export class HousingService {
     },
     {
       id: 8,
-      name: 'Seriously Safe Towns',
+      name: 'Local - Seriously Safe Towns',
       city: 'Oakland',
       state: 'CA',
       photo: `${this.baseUrl}/saru-robert-9rP3mxf8qWI-unsplash.jpg`,
@@ -103,7 +105,7 @@ export class HousingService {
     },
     {
       id: 9,
-      name: 'Capital Safe Towns',
+      name: 'Local - Capital Safe Towns',
       city: 'Portland',
       state: 'OR',
       photo: `${this.baseUrl}/webaliser-_TPTXZd9mOo-unsplash.jpg`,
@@ -121,23 +123,15 @@ export class HousingService {
     return this.housingLocationList.find(housingLocation => housingLocation.id === id);
   }
 
-  submitApplication(firstName: string, lastName: string, email: string) {
-    console.log(`Homes application received: firstName: ${firstName}, lastName: ${lastName}, email: ${email}.`);
-  }
-}
-*/
-
-// JSON server
-export class HousingService {
-  url = 'http://localhost:3000/locations';
-
-  async getAllHousingLocations(): Promise<HousingLocation[]> {
+  async getAsyncAllHousingLocations(): Promise<HousingLocation[]> {
     const data = await fetch(this.url);
+
     return await data.json() ?? [];
   }
 
-  async getHousingLocationById(id: number): Promise<HousingLocation | undefined> {
+  async getAsyncHousingLocationById(id: number): Promise<HousingLocation | undefined> {
     const data = await fetch(`${this.url}/${id}`);
+
     return await data.json() ?? {};
   }
 

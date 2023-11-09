@@ -30,18 +30,16 @@ export class HomeComponent {
   housingService: HousingService = inject(HousingService);
   filteredLocationList: HousingLocation[] = [];
 
-  // Local data
-  // constructor() {
-  //   this.housingLocationList = this.housingService.getAllHousingLocations();
-  //   this.filteredLocationList = this.housingLocationList;
-  // }
-
-  // JSON server
   constructor() {
-    this.housingService.getAllHousingLocations().then((housingLocationList: HousingLocation[]) => {
-      this.housingLocationList = housingLocationList;
-      this.filteredLocationList = housingLocationList;
-    });
+    if (this.housingService.dataOriginLocal) {
+      this.housingLocationList = this.housingService.getAllHousingLocations();
+      this.filteredLocationList = this.housingLocationList;
+    } else {
+      this.housingService.getAsyncAllHousingLocations().then((housingLocationList: HousingLocation[]) => {
+        this.housingLocationList = housingLocationList;
+        this.filteredLocationList = housingLocationList;
+      });
+    }
   }
 
   filterResults(text: string) {
