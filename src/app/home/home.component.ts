@@ -18,6 +18,9 @@ import { HousingLocation } from '../housinglocation';
         <button class="primary" type="button" (click)="filterResults(filter.value)">Search</button>
       </form>
     </section>
+
+    <p class="showing-count" *ngIf="filteredLocationList">Showing {{ filteredLocationList.length }} results</p>
+
     <section class="results">
       <ng-container *ngIf="filteredLocationList.length > 0; else loading">
         <app-housing-location *ngFor="let housingLocation of filteredLocationList" [housingLocation]="housingLocation"></app-housing-location>
